@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-use sakila;--
-
-show tables;
-show tables;
-=======
 use sakila;
 
 show tables
->>>>>>> 04bdbea5c3fdedba45002c7b8cd078923e8fd2a9
 
 --  1.소비자 맞춤 서비스의 어려움.
 --      기존 DVD 대여점은 고객의 개별적인 취향을 파악하고 이에 맞는 콘텐츠를 선별하여 추천하는 데 한계가 있음.

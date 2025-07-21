@@ -305,6 +305,7 @@ $RECYCLE.BIN/
 *.lnk
 
 __marimo__
+<<<<<<< HEAD
 
 # 가상 환경
 .venv/
@@ -319,4 +320,6 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+=======
+>>>>>>> 04bdbea5c3fdedba45002c7b8cd078923e8fd2a9
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,venv,dotenv,virtualenv,data,database,visualstudiocode,python,jupyternotebooks
