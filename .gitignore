@@ -304,4 +304,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+__marimo__
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,venv,dotenv,virtualenv,data,database,visualstudiocode,python,jupyternotebooks
