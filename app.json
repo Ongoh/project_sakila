@@ -1,0 +1,74 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.14.11"
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "name": "_",
+      "code": "",
+      "code_hash": null,
+      "config": {
+        "column": null,
+        "disabled": false,
+        "hide_code": false
+      }
+    },
+    {
+      "id": "TFDL",
+      "name": "_",
+      "code": "import os\nimport sqlalchemy\n\n_password = os.environ.get(\"MYSQL_PASSWORD\", \"034652585aa##\")\nDATABASE_URL = f\"mysql+pymysql://root:{_password}@127.0.0.1:3306/sakila\"\nengine = sqlalchemy.create_engine(DATABASE_URL)",
+      "code_hash": null,
+      "config": {
+        "column": null,
+        "hide_code": false,
+        "disabled": false
+      }
+    },
+    {
+      "id": "rIJO",
+      "name": "_",
+      "code": "import marimo as mo",
+      "code_hash": null,
+      "config": {
+        "column": null,
+        "hide_code": false,
+        "disabled": false
+      }
+    },
+    {
+      "id": "GgFg",
+      "name": "_",
+      "code": "_df = mo.sql(\n    f\"\"\"\n\n\n    use sakila;\n    \"\"\",\n    engine=engine\n)",
+      "code_hash": null,
+      "config": {
+        "column": null,
+        "hide_code": false,
+        "disabled": false
+      }
+    },
+    {
+      "id": "vFcu",
+      "name": "_",
+      "code": "_df = mo.sql(\n    f\"\"\"\n    SELECT\n    DATE_FORMAT(r.rental_date, '%Y-%m') AS rental_month,\n    COUNT(r.rental_id) AS total_rentals,\n    SUM(CASE\n        WHEN DATEDIFF(r.return_date, r.rental_date) > f.rental_duration THEN 1\n        ELSE 0\n    END) AS total_overdue_rentals,\n    (SUM(CASE\n        WHEN DATEDIFF(r.return_date, r.rental_date) > f.rental_duration THEN 1\n        ELSE 0\n    END) * 100.0 / COUNT(r.rental_id)) AS overdue_rate_percentage\n    FROM\n    rental AS r\n    JOIN\n    inventory AS i ON r.inventory_id = i.inventory_id\n    JOIN\n    film AS f ON i.film_id = f.film_id\n    WHERE\n    r.return_date IS NOT NULL\n    GROUP BY\n    rental_month\n    ORDER BY\n    rental_month;\n    \"\"\",\n    engine=engine\n)",
+      "code_hash": null,
+      "config": {
+        "column": null,
+        "hide_code": false,
+        "disabled": false
+      }
+    },
+    {
+      "id": "fcrc",
+      "name": "_",
+      "code": "_df = mo.sql(\n    f\"\"\"\n    SELECT\n        HOUR(rental_date) AS rental_hour_of_day, -- 대여 발생 시각 (시간 단위)\n        COUNT(rental_id) AS total_rentals_at_hour\n    FROM\n        rental\n    -- 특정 기간을 제한하려면 WHERE 절을 사용하세요 (예: WHERE rental_date BETWEEN '2007-01-01' AND '2007-12-31')\n    GROUP BY\n        rental_hour_of_day\n    ORDER BY\n        rental_hour_of_day;\n    \"\"\",\n    engine=engine\n)",
+      "code_hash": null,
+      "config": {
+        "column": null,
+        "hide_code": false,
+        "disabled": false
+      }
+    }
+  ]
+}
